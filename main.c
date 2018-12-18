@@ -17,11 +17,12 @@
 int main(void)
 {
     struct sockaddr_in si_other;
-    int s, slen=sizeof(si_other);
+    int my_socket;
+    int slen=sizeof(si_other);
     char buf[BUFLEN];
     char message[BUFLEN];
 
-    if ( (s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
+    if ( (my_socket=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
     {
         printf("err: Socket\n");
     }
@@ -46,7 +47,7 @@ int main(void)
         //send the message
 
 
-        if (sendto(s, message, strlen(message) , 0 , (struct sockaddr *) &si_other,(socklen_t)slen)==-1)
+        if (sendto(my_socket, message, strlen(message) , 0 , (struct sockaddr *) &si_other,(socklen_t)slen)==-1)
         {
             printf("Err: sendto \n");
         }
@@ -55,7 +56,7 @@ int main(void)
         //clear the buffer by filling null, it might have previously received data
         memset(buf,'\0', BUFLEN);
         //try to receive some data, this is a blocking call
-        if (recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, (socklen_t *)&slen) == -1)
+        if (recvfrom(my_socket, buf, BUFLEN, 0, (struct sockaddr *) &si_other, (socklen_t *)&slen) == -1)
         {
             printf("err: recvfrom");
         }
