@@ -37,34 +37,31 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    while(1)
-    {
-        printf("Enter message : ");
+
+    printf("Entrer message texte : ");
     message[0]='\0';
-/*        gets(message);  deprecated */
+    /*        gets(message);  deprecated */
     fgets(message,BUFLEN,stdin);
 
-        //send the message
+    //send the message
 
 
-        if (sendto(my_socket, message, strlen(message) , 0 , (struct sockaddr *) &si_other,(socklen_t)slen)==-1)
-        {
-            printf("Err: sendto \n");
-        }
-
-        //receive a reply and print it
-        //clear the buffer by filling null, it might have previously received data
-        memset(buf,'\0', BUFLEN);
-        //try to receive some data, this is a blocking call
-        if (recvfrom(my_socket, buf, BUFLEN, 0, (struct sockaddr *) &si_other, (socklen_t *)&slen) == -1)
-        {
-            printf("err: recvfrom");
-        }
-
-        puts(buf);
+    if (sendto(my_socket, message, strlen(message) , 0 , (struct sockaddr *) &si_other,(socklen_t)slen)==-1)
+    {
+        printf("Err: sendto \n");
     }
-/*
-    close(s);
-*/
+
+    //receive a reply and print it
+    //clear the buffer by filling null, it might have previously received data
+    memset(buf,'\0', BUFLEN);
+    //try to receive some data, this is a blocking call
+    if (recvfrom(my_socket, buf, BUFLEN, 0, (struct sockaddr *) &si_other, (socklen_t *)&slen) == -1)
+    {
+        printf("err: recvfrom");
+    }
+    puts(buf);
+
+    close(my_socket);
+
     return EXIT_SUCCESS;
 }
