@@ -1,5 +1,6 @@
 /*
-    Simple udp client
+    Simple udp client version pédagoqique
+    bogt(2018)
 */
 #include<stdio.h> //printf
 #include<string.h> //memset
