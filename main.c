@@ -23,6 +23,8 @@ int main(void)
     char buf[BUFLEN];
     char message[BUFLEN];
 
+    printf("Client UDP \n");
+
     if ( (my_socket=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
     {
         printf("err: Socket\n");
@@ -60,6 +62,7 @@ int main(void)
     {
         printf("err: recvfrom");
     }
+    printf("chaine renvoyée au client =>");
     puts(buf);
 
     close(my_socket);
