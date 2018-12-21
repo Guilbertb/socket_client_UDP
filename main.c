@@ -29,6 +29,7 @@ int main(void)
     {
         printf("err: Socket\n");
     }
+    printf("Creation de la socket       Ok\n");
 
     memset((char *) &si_other, 0, sizeof(si_other));
     si_other.sin_family = AF_INET;
@@ -48,7 +49,7 @@ int main(void)
 
     //send the message
 
-
+    printf("Envoi du message            Ok\n");
     if (sendto(my_socket, message, strlen(message) , 0 , (struct sockaddr *) &si_other,(socklen_t)slen)==-1)
     {
         printf("Err: sendto \n");
@@ -58,6 +59,8 @@ int main(void)
     //clear the buffer by filling null, it might have previously received data
     memset(buf,'\0', BUFLEN);
     //try to receive some data, this is a blocking call
+
+    printf("Attendre la reception du message serveur \n");
     if (recvfrom(my_socket, buf, BUFLEN, 0, (struct sockaddr *) &si_other, (socklen_t *)&slen) == -1)
     {
         printf("err: recvfrom");
